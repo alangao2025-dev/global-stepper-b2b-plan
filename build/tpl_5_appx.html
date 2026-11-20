@@ -1,0 +1,64 @@
+<!-- 附录 -->
+<section class="mod" id="appx">
+<h2><span class="no">附</span>附录：数据来源、缺口清单、搜索排名与方法</h2>
+
+<h3>A. 数据采集方法</h3>
+<div class="tw"><table>
+<tr><th>轮次</th><th>采集日期</th><th>市场</th><th>内容</th><th>用量</th></tr>
+<tr><td>美国第一轮</td><td>2026-11-12</td><td>美国</td><td>行业报告、搜索排名与 Shopping、竞品官网、新闻、Trends（含品牌词）</td><td>Serper 6 次、Tavily 11 次、Firecrawl 5 积分</td></tr>
+<tr><td>美国第二轮</td><td>2026-11-13</td><td>美国</td><td>Census HS 8501 进口额；Reddit、YouTube；Meta / LinkedIn 广告库</td><td>Apify $0.35、Census 1 次</td></tr>
+<tr><td>北美</td><td>2026-11-16</td><td>美国、加拿大、墨西哥</td><td>北美规模报告、Census HS 850152、Shopping 价格、搜索排名、关税与近岸外包新闻、CSA 认证、Trends</td><td>Serper 4 次、Tavily 3 次</td></tr>
+<tr><td>欧洲 + 中东</td><td>2026-11-16</td><td>德国、阿联酋、沙特</td><td>欧洲 / 中东规模报告、VDMA / ZVEI、欧盟机械法规、SASO / ECAS、搜索排名、Shopping、LinkedIn 与 Meta 广告库（含 5 个德国竞品）、德语新闻、Trends、YouTube</td><td>Serper 8 次、Tavily 9 次、Apify $0.06</td></tr>
+<tr><td>东南亚</td><td>2026-11-16</td><td>越南、泰国、印尼</td><td>东南亚规模报告、本地语言搜索排名、Meta 广告库、FDI 与本地含量新闻、SNI / BOI、Meta 广告成本基准、Trends、YouTube</td><td>Serper 6 次、Tavily 4 次、Apify $0.11</td></tr>
+<tr><td>美国第三轮（步进）</td><td>2026-11-20</td><td>美国</td><td>步进 / 闭环步进市场报告、步进词搜索排名与 Shopping、StepperOnline 官网、Trends、LinkedIn 广告库（Oriental、Leadshine、Lin Engineering、Applied Motion）、Reddit</td><td>Serper 6 次、Tavily 3 次、Apify $0.18、Firecrawl 3 积分</td></tr>
+<tr><td>四区域补充（步进）</td><td>2026-11-20</td><td>墨、德、阿联酋、越、泰、印尼</td><td>各国步进词 Google Trends 7 组；LinkedIn 广告库“Schrittmotor”（德国，0 条）</td><td>只用免费渠道，0 费用</td></tr>
+<tr><td>公司资料</td><td>2026-11-20</td><td>—</td><td>《海布里 2020》产品目录 36 页（PDF 无文字层，人工读图整理，未经公司复核）；美国单区域计划 v3</td><td>—</td></tr>
+</table></div>
+<p class="small">工具：crawler 技能<b>高级查询</b>（Tavily 报告检索、Serper Google 搜索与 Shopping、Apify 社媒与 Meta 广告库、Firecrawl 渲染）+ 免费渠道（Google News RSS、Google Trends 网页接口、LinkedIn 广告库、U.S. Census 国际贸易 API）。原始数据保存在 <code>research/out_us_servo*/</code>、<code>research/out_us_stepper_v3/</code> 和 <code>research/global/out_{na,eu_me,sea,stepper_v3}/</code>（raw、sources.json、gaps.json、failures.json、usage.json）。<br>
+<b>来源分层：</b><span class="lay layA">A 权威二手报告</span> <span class="lay layB">B 公开行为数据</span> <span class="lay layC">C 竞品公开数据</span> <span class="lay layD">D 公司资料</span>。市场研究公司的公开摘要有推销报告的立场，新闻标题和二手引用只作方向参考。前五轮是按伺服采集的：环境、法规、渠道、广告成本类数据与品类关系不大，正文继续使用；需求、价格、竞品类数据只在标明“伺服参照”时使用。</p>
+
+<h3>B. 数据来源登记（共 {{N_SRC}} 条，正文引用 {{N_CITED}} 条）</h3>
+<p class="small muted">分层：A {{N_A}} · B {{N_B}} · C {{N_C}} · D {{N_D}}；区域：{{REGION_COUNTS}}。同一网址在多轮中出现时只保留一条，最后一列是各轮原始编号。点正文中的 D 编号可以跳到这里。</p>
+<div class="srcbar">
+  <select id="fRegion" aria-label="按区域筛选"><option value="">全部区域</option><option>北美</option><option>欧洲</option><option>中东</option><option>东南亚</option><option>全球</option></select>
+  <select id="fLayer" aria-label="按层级筛选"><option value="">全部层级</option><option value="A">A 权威二手</option><option value="B">B 公开行为</option><option value="C">C 竞品公开</option><option value="D">D 公司资料</option></select>
+  <label class="small"><input type="checkbox" id="fCited"> 只看正文引用</label>
+  <input id="fText" placeholder="搜索发布方或标题…" aria-label="搜索来源">
+  <span class="small muted" id="fCount"></span>
+</div>
+<div class="tw" id="srcTable"><table>
+<thead><tr><th>编号</th><th>层级</th><th>区域·国家</th><th>发布方</th><th>标题 / 链接</th><th>渠道</th><th>发布日期</th><th>抓取日期</th><th>问题</th><th>采集轮次</th></tr></thead>
+<tbody>
+{{SOURCE_ROWS}}
+</tbody></table></div>
+<p class="small muted">问题编号：Q1 市场规模、Q2 客户与动机、Q3 价格、Q4 竞品、Q5 渠道与广告、Q6 季节与展会、Q7 顾虑与风险、Q8 法规、X 公司内部数据。</p>
+
+<h3>C. 缺口清单与建议去向</h3>
+<div class="tw"><table>
+<tr><th>#</th><th>缺口</th><th>原因（已搜过哪些渠道）</th><th>建议去向</th></tr>
+<tr><td>G1</td><td>公司成本、毛利、产能；现有海外客户（美、加、丹麦等）、渠道与年销售额</td><td>内部数据，目录未提供；公开渠道只有伺服制造商毛利 25–35% 的旁证[[US-R1:S74]]</td><td>公司数据收集表（财务、外贸部）</td></tr>
+<tr><td>G2</td><td>美国以外的步进搜索排名、竞品与分销商是否经营步进；欧洲、中东、东南亚分国家步进市场规模</td><td>本轮只用免费渠道（Trends），没有调用 Serper；分国家规模在付费报告里</td><td>高级查询补抓：德、墨、越、泰、印尼、阿联酋各 1–2 个步进词的搜索排名与 Shopping，约 12 次 Serper（在单次 25 次上限内）；规模用 UN Comtrade 按 HS 850110 / 850131 估算</td></tr>
+<tr><td>G3</td><td>美国以外的工程师声音</td><td>只有美国 Reddit；德语 YouTube 伺服检索只得到 1 条有效样本；SPS-Forum、Mikrocontroller.net 未接入</td><td>人工浏览论坛与越南、泰国 Facebook 工控群组；或 5 次客户访谈</td></tr>
+<tr><td>G4</td><td>现行产品线、驱动器来源与海外销售授权、官网</td><td>目录为 2020 年版；MS-Mini3 / 3E 机身有 YAKOTEC 标识；seawery.com 2026-11-20 抓取时 HTTPS 证书错误</td><td>产品部提供现行目录与停产清单；采购与法务确认 OEM 协议；IT 修复证书或新建出海站</td></tr>
+<tr><td>G5</td><td>UL、CSA、CE 文件的实际状态</td><td>目录只写“全部 CE、部分 UL”，没有型号与文件号</td><td>品质部提供证书清单与 DoC</td></tr>
+<tr><td>G6</td><td>美国以外的步进公开价格</td><td>德国、东南亚没有采集步进价格；Shopee / Lazada / Tokopedia 未接入（marketplace 未实现）</td><td>随 G2 的 Shopping 补抓；人工记录 Amazon.de、Shopee、Tokopedia 前 20 个闭环步进商品</td></tr>
+<tr><td>G7</td><td>步进电机 HS 归类与各国关税（ACFTA、海湾、欧盟、美国）</td><td>步进没有单独的 6 位税号；按 HS 编码逐国查询需要官方数据库</td><td>报关行或货代出具归类意见；WTO Tariff Download Facility</td></tr>
+<tr><td>G8</td><td>展会准确日期与展位价格（曼谷、河内、迪拜、汉诺威）</td><td>新闻全文被拦（解码失败、503），只拿到标题</td><td>直接联系主办方；问商会是否有组团补贴</td></tr>
+<tr><td>G9</td><td>Keyword Planner 搜索量和出价；中东、东南亚 B2B 广告的真实 CPL</td><td>需要广告账户；公开基准大多是美国数据[[SEA:S35|SEA:S33]]</td><td>开户后导出 VN / US / MX 关键词数据；H1 / H6 测试后用自己的账户数据</td></tr>
+<tr><td>G10</td><td>采购决策权重、价格弹性</td><td>属于预测判断，没有公开数据</td><td>H5 报价测试 + 15 次赢单 / 丢单访谈</td></tr>
+<tr><td>G11</td><td>德国步进竞品的广告打法</td><td>LinkedIn 广告库按“Schrittmotor”检索第一页 0 条</td><td>改按广告主查询（Nanotec、Oriental Motor Europe、Phytron 等）</td></tr>
+</table></div>
+<p class="small muted">完整的覆盖检查见各轮目录下的 coverage.json 和 gaps.json：欧洲 + 中东 16 条、东南亚 15 条、北美 8 条（伺服口径），四区域补充 2 条。</p>
+
+<h3>D. 各国 Google 搜索前 10 名（竞品与分销商候选）</h3>
+<div class="tw"><table>
+<tr><th>国家</th><th>检索词</th><th>前 10 名域名</th></tr>
+{{SERP_ROWS}}
+</table></div>
+<p class="small muted">来源：Serper（Google 搜索 API）。美国为 2026-11-20 的步进词；其他国家为 2026-11-16 的伺服词，只用来找分销商和工控商城候选，需确认对方是否经营步进（缺口 G2）。已排除维基百科和 YouTube。</p>
+
+<h3>E. 方法论依据</h3>
+<p class="small">科特勒、凯勒、切尔内夫《营销管理》G-STIC 与 7T；切尔内夫 5C；Webster &amp; Wind（1972）组织购买行为；Robinson, Faris &amp; Wind（1967）购买类型；Bonoma &amp; Shapiro（1983）嵌套细分；Anderson, Narus &amp; van Rossum（2006）B2B 客户价值主张；Marn &amp; Rosiello（1992）价格瀑布；Parasuraman 等（1988）SERVQUAL；Keller CBBE；Johanson &amp; Vahlne（1977）乌普萨拉模型；Levitt（1983）全球化；Schooler（1965）原产地效应；Binet &amp; Field（2013）；Ries（2011）精益创业；Denzin（1978）三角验证；目标任务预算法。</p>
+</section>
+</main>
+<footer>海布里电气（SEAWERY）步进电机出海 B2B 年度营销计划 · 北美 / 欧洲 / 中东 / 东南亚 · 依据《数字营销方法论 v6》与公司资料《海布里 2020》· 数据采集 2026-11-12 至 2026-11-20 · 金额默认人民币 · 标注【假设】的数字需要用公司数据和测试结果验证</footer>

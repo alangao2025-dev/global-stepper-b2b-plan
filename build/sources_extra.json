@@ -1,0 +1,51 @@
+[
+ {
+  "id": "S1",
+  "layer": "A",
+  "country": "US",
+  "publisher": "U.S. Census Bureau 国际贸易 API",
+  "title": "International Trade API：HS 850110（≤37.5 W 电机）、850151、850152 美国进口额，全部国家 / 自中国，2024-01 → 2026-09",
+  "url": "",
+  "via": "Census API",
+  "fetched_at": "2026-11-13",
+  "published": "",
+  "questions": [
+   "Q1",
+   "Q8"
+  ],
+  "kind": "platform",
+  "path_abs": "research/out_us_servo_v2_hs6/raw/trade_imports_850151_850152_850110_5700.json"
+ },
+ {
+  "id": "S2",
+  "layer": "D",
+  "country": "CN",
+  "publisher": "深圳市海布里电气有限公司（SEAWERY）",
+  "title": "《海布里 2020》产品目录（36 页，公司提供）：公司简介、两相 / 三相混合步进电机、闭环步进电机、开环 / 闭环 / EtherCAT 驱动器、环形变压器",
+  "url": "",
+  "via": "公司资料（人工读图）",
+  "fetched_at": "2026-11-20",
+  "published": "2020",
+  "questions": [
+   "X"
+  ],
+  "kind": "primary",
+  "path_abs": "海布里2020(1).pdf"
+ },
+ {
+  "id": "S3",
+  "layer": "D",
+  "country": "US",
+  "publisher": "本项目：海布里 SEAWERY 美国 B2B 营销计划 v3",
+  "title": "美国单区域计划 v3（闭环步进）：产品与美国建议价、细分、竞品、预算结构",
+  "url": "",
+  "via": "项目文件",
+  "fetched_at": "2026-11-20",
+  "published": "2026-11-20",
+  "questions": [
+   "X"
+  ],
+  "kind": "primary",
+  "path_abs": "海布里SEAWERY_美国B2B营销计划_v3.html"
+ }
+]
